@@ -1,8 +1,8 @@
-import 'package:endless_photo_scroll/repository/photos_repositorty.dart';
+import 'package:endless_photo_scroll/network/api_client.dart';
+import 'package:endless_photo_scroll/network/repository/photos_repositorty.dart';
 import 'package:flutter/material.dart';
-import 'package:endless_photo_scroll/models/photos_model.dart';
+import 'package:endless_photo_scroll/network/responses/photos_response.dart';
 import 'package:favorite_button/favorite_button.dart';
-import '../api.dart';
 import 'dart:developer';
 
 class FirstScreen extends StatefulWidget {
@@ -35,48 +35,48 @@ class _FirstScreenState extends State<FirstScreen> {
             itemBuilder: (BuildContext context) => <PopupMenuEntry>[
               PopupMenuItem(
                   child: TextButton(
-                onPressed: () {},
-                child: const Text(
-                  'Profile',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.purpleAccent),
-                ),
-              )),
+                    onPressed: () {},
+                    child: const Text(
+                      'Profile',
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.purpleAccent),
+                    ),
+                  )),
               PopupMenuItem(
                   child: TextButton(
-                onPressed: () {},
-                child: const Text(
-                  'My publications',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.purpleAccent),
-                ),
-              )),
+                    onPressed: () {},
+                    child: const Text(
+                      'My publications',
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.purpleAccent),
+                    ),
+                  )),
               PopupMenuItem(
                   child: TextButton(
-                onPressed: () {},
-                child: const Text(
-                  'My Favorites',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.purpleAccent),
-                ),
-              )),
+                    onPressed: () {},
+                    child: const Text(
+                      'My Favorites',
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.purpleAccent),
+                    ),
+                  )),
               PopupMenuItem(
                   child: TextButton(
-                onPressed: () {},
-                child: const Text(
-                  'Settings',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.purpleAccent),
-                ),
-              )),
+                    onPressed: () {},
+                    child: const Text(
+                      'Settings',
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.purpleAccent),
+                    ),
+                  )),
             ],
           )),
       body: FutureBuilder(
@@ -130,11 +130,11 @@ class _FirstScreenState extends State<FirstScreen> {
 Future<PhotosModel> getAllData() async {
   var url =
       'https://api.wazirx.com/sapi/v1/tickers/24hr';
-      NetworkHelper networkHelper = NetworkHelper(urL: url);
+  NetworkHelper networkHelper = NetworkHelper(urL: url);
   try {
-    final data = await networkHelper.getdata();
+    final data = await networkHelper.getData();
     PhotosModel model = PhotosModel.fromJson(data);
-    print(data);
+    log(data);
     return model;
   } catch (e) {
     print(e);
@@ -152,10 +152,10 @@ class PhotosCard extends StatelessWidget {
 
   PhotosCard(
       {Key? key,
-      required this.symbol,
-      required this.lastPrice,
-      required this.lowPrice,
-      required this.highPrice})
+        required this.symbol,
+        required this.lastPrice,
+        required this.lowPrice,
+        required this.highPrice})
       : super(key: key);
 
   @override
@@ -181,7 +181,6 @@ class PhotosCard extends StatelessWidget {
         ],
       ),
     );
-    throw UnimplementedError();
   }
 }
 
